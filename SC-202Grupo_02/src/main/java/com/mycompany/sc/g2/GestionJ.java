@@ -121,7 +121,41 @@ public class GestionJ {
         
     }
     
-    
+         public static void EliminarJugador(Jugador jugadores[]) {
+        boolean encontrado = false;
+        int setIdJgador = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del jugador a borrar: "));
+            for (int i = 0; i < Jugador.cantidadJugador; i++) {
+                if (jugadores[i].getIdJugador()== Jugador.consecutivoID) {
+                    jugadores[i] = null;
+                    ordenarListaDeJugador(jugadores);
+                    Jugador.cantidadJugador --;
+                    
+                    encontrado = true;
+                    JOptionPane.showMessageDialog(null, "Jugador borrado correctamente.");
+                    break;
+                }
+            }
+            if (!encontrado) {
+            JOptionPane.showMessageDialog(null, "No se encontró ningun estudiante con ese dato");
+            
+      }
+    }
+         private static void ordenarListaDeJugador(Jugador jugadores[]){
+        Jugador jugadoresTemp[] = new Jugador[jugadores.length];
+        
+        int cont = 0;
+        for (int i = 0; i < jugadores.length; i++) {
+            if (jugadores[i] != null) {
+                jugadoresTemp[cont] = jugadores[i];
+                cont++;
+            }
+            
+        }
+        
+        for (int i = 0; i < jugadoresTemp.length; i++) {
+            jugadores[i] = jugadoresTemp[i];
+        }
+    }
     
     
 }
