@@ -27,6 +27,8 @@ public class GestionE {
         }
         for (int i = 0; i < Equipo.cantidadEquipos; i++) {
             System.out.println((i+1)+ "-"+ equipos[i].mostrarDetallesE(false));
+            System.out.println("[Jugadores]");
+            equipos[i].mostrarJugadores();
             JOptionPane.showMessageDialog(null, (i+1)+ "-"+ equipos[i].mostrarDetallesE(true));
             
         }
@@ -73,10 +75,60 @@ public class GestionE {
     
     }
    
-//    public static Equipo meterJugadores(){
-//        
-//    }
-   
+    public static void agregarJugadorAEquipo() {
+        // Mostrar equipos disponibles
+        boolean equipoDisponible = false;
+        String equiposDisponibles = "Equipos disponibles:\n";
+        for (int i = 0; i < equipos.length; i++) {
+            if (equipos[i] != null && equipos[i].estaDisponible()) {
+                equiposDisponibles += (i + 1) + "- " + equipos[i].getNombreEquipo() + "\n";
+                equipoDisponible = true;
+            }
+        }
+
+        if (!equipoDisponible) {
+            JOptionPane.showMessageDialog(null, "No hay equipos disponibles.");
+            return;
+        }
+
+        int seleccion = Integer.parseInt(JOptionPane.showInputDialog(equiposDisponibles + "Seleccione un equipo para agregar al jugador:"));
+        Equipo equipoSeleccionado = equipos[seleccion - 1];
+
+        // Elegir jugador
+        String jugadoresLibresDisponibles = "Jugadores libres:\n";
+        for (Jugador jugador : GestionJ.jugadoresLibres) {
+            if (jugador != null) {
+                jugadoresLibresDisponibles += jugador.getIdJugador() + "- " + jugador.getNombreJugador()+ "\n";
+            }
+        }
+
+        if (jugadoresLibresDisponibles.equals("Jugadores libres:\n")) {
+            JOptionPane.showMessageDialog(null, "No hay jugadores libres disponibles.");
+            return;
+        }
+
+        int idJugadorSeleccionado = Integer.parseInt(JOptionPane.showInputDialog(jugadoresLibresDisponibles + "Seleccione el ID del jugador:"));
+        Jugador jugadorSeleccionado = null;
+
+        for (int i = 0; i < GestionJ.jugadoresLibres.length; i++) {
+            if (GestionJ.jugadoresLibres[i] != null && GestionJ.jugadoresLibres[i].getIdJugador() == idJugadorSeleccionado) {
+                jugadorSeleccionado = GestionJ.jugadoresLibres[i];
+                GestionJ.jugadoresLibres[i] = null; // Eliminar de libres
+                break;
+            }
+        }
+
+        if (jugadorSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Jugador no encontrado.");
+            return;
+        }
+
+        if (equipoSeleccionado.agregarJugador(jugadorSeleccionado)) {
+            JOptionPane.showMessageDialog(null, "Jugador agregado al equipo " + equipoSeleccionado.getNombreEquipo());
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo agregar el jugador.");
+        }
+    }
 
     // || CONSTRUCTORES ||
     // || METODOS ||

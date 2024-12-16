@@ -34,7 +34,7 @@ public class Jugador {
     public Jugador(String nombreJugador, Estado estado, Posicion posicion) {
         this.idJugador = consecutivoID;
         this.nombreJugador = nombreJugador;
-        this.estado = estado;
+        this.estado = Estado.libre;
         this.equipoPertenencia = equipoPertenencia;
         this.posicion = posicion;
         this.golesAnotados = 0;

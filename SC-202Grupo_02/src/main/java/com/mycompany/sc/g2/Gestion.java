@@ -72,12 +72,13 @@ public class Gestion {
                     GestionE.AgregarEquipo();
                     break;
                 case 3: //Agregar Jugador a un Equipo
-                    //Gestion.MostrarCliente();
+                    GestionE.agregarJugadorAEquipo();
                     break;
                 case 4: //Eliminar Jugador de un Equipo
                     //Gestion.SolicitarPedido();
 
                     break;
+                
                 case 5: //Salir
                     JOptionPane.showMessageDialog(null, "Gracias por usar el Menú Gestión de Equipos.");
 

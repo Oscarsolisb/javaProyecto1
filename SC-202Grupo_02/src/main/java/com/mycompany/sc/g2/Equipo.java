@@ -29,6 +29,10 @@ public class Equipo {
     public static int consecutivoIdEquipo = 100;
     public static int cantidadEquipos = 0;
     Random random = new Random();
+    private boolean disponible;
+    private Jugador titulares[]; 
+    private Jugador suplentes[];
+    
 
     
     
@@ -43,7 +47,9 @@ public class Equipo {
     public Equipo (String nombreEquipo){
         this.idEquipo = consecutivoIdEquipo;
         this.nombreEquipo = nombreEquipo;
-        this.jugadores = jugadores;
+        this.disponible = true;
+        this.titulares = new Jugador[5];
+        this.suplentes = new Jugador[2];
         this.partidosJugados = partidosJugados;
         this.partidosGanados = partidosGanados;
         this.partidosPerdidos = partidosPerdidos;
@@ -72,7 +78,7 @@ public class Equipo {
         if (conSaltoLinea) {
             return "DATOS DEL Equipo #"+getIdEquipo()+
                     "\nNombre: "+getNombreEquipo()+
-                    "\nJugadores: "+jugadores+
+                    
                     "\nPartidos Jugados: "+getPartidosJugados()+
                     "\nPartidos Ganados: "+ getPartidosGanados()+
                     "\nPartidos Perdidos "+ getPartidosPerdidos()+
@@ -84,7 +90,7 @@ public class Equipo {
             
             
         }
-        return "Equipo #: "+getIdEquipo()+ ", Nombre: "+getNombreEquipo()+ ", Jugadores: "+null+
+        return "Equipo #: "+getIdEquipo()+ ", Nombre: "+getNombreEquipo()+ 
                 ", Partidos Jugados: "+getPartidosJugados()+ ", Partidos Ganados: "+ getPartidosGanados()+", Partidos Perdidos "+ getPartidosPerdidos()+
                 ", Partidos Empatados: " + getPartidosEmpatados()+", Goles a Favor: "+ golesFavor+", Goles en Contra: "+ golesContra+", Posesión del Balón: "+ posesionBalon;
     }
@@ -92,8 +98,57 @@ public class Equipo {
     
     
     
+   public boolean agregarJugador(Jugador jugador) {
+        if (!disponible) {
+            return false; // El equipo no está disponible
+        }
+
+        // Primero se agregan los titulares
+        for (int i = 0; i < titulares.length; i++) {
+            if (titulares[i] == null) {
+                titulares[i] = jugador;
+                if (i == 4) {
+                    disponible = false;  // El equipo deja de estar disponible cuando tiene 5 titulares
+                }
+                return true;
+            }
+        }
+
+        // Luego, si no hay espacio en titulares, se agregan a los suplentes
+        for (int i = 0; i < suplentes.length; i++) {
+            if (suplentes[i] == null) {
+                suplentes[i] = jugador;
+                return true;
+            }
+        }
+        return false; // El equipo está lleno
+    }
     
+    // Verificar si el equipo está disponible (menos de 7 jugadores)
+    public boolean estaDisponible() {
+        return disponible;
+    }
     
+    public void mostrarJugadores() {
+        
+        mostrarJugadoresEquipo();
+    }
+    
+    public  void mostrarJugadoresEquipo() {
+        System.out.println(" Titulares:");
+        for (int i = 0; i < titulares.length; i++) {
+            if (titulares[i] != null) {
+                System.out.println(titulares[i].getNombreJugador());
+            }
+        }
+        System.out.println("\n Suplentes:");
+        for (int i = 0; i < suplentes.length; i++) {
+            if (suplentes[i] != null) {
+                System.out.println(suplentes[i].getNombreJugador());
+            }
+        }
+        
+    }
     
     // || GETS AND SETS ||
 

@@ -12,7 +12,7 @@ INTEGRANTES: OSCAR SOLÍS BARRIENTOS, ANTHONY AZOFEIFA RAMÍREZ, ALESSANDRO BOGA
  */
 public class GestionJ {
     //Se crea el arreglo estatico y se inicializa
-
+    public static Jugador[] jugadoresLibres = new Jugador[10]; // Lista de jugadores libres
     public static Jugador jugadores[] = new Jugador[70];
     public static Jugador jugadoresEquipoAT[] = new Jugador[5];
     public static Jugador jugadoresEquipoBT[] = new Jugador[5];
@@ -53,39 +53,36 @@ public class GestionJ {
     //Metodo que va ser llamado por la clase correspondiente para agregar jugadores
     //Metodo Temporal
     public static void AgregarJugador() {
-        
+
         if (Jugador.cantidadJugador < jugadores.length) {
-            int valorBtn =0;
-            
-            valorBtn = JOptionPane.showOptionDialog(null, "Como desea agregar al jugador", "Seleccione", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String []{"Agregarlo con equipo", "Agregarlo sin equipo"}, "Agregarlo sin equipo");
+            int valorBtn = 0;
+
+            valorBtn = JOptionPane.showOptionDialog(null, "Como desea agregar al jugador", "Seleccione", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Agregarlo con equipo", "Agregarlo sin equipo"}, "Agregarlo sin equipo");
             if (Equipo.cantidadEquipos == 0) {
                 JOptionPane.showMessageDialog(null, "No hay equipos registrados\nPor favor vuelva al menu principal y agregue equipos");
-                
+                return;
 
             }
             if (valorBtn == 0) {//Agregar con Equipo 
-                
-                
+
                 GestionE.seleccionEquipo();
                 if (GestionE.seleccionEquipo() == GestionE.equipos[0]) {//Equipo 1
                     cargarJugadoresLista(jugadoresEquipoAT, Estado.titular);
-                    
+
                 }
-            }else if (valorBtn == 1)
+            } else if (valorBtn == 1) {
+                agregarJugadorLibre(jugador);
+                
+            }
+
             
-            
-            
-          
-            
-            
-            JOptionPane.showMessageDialog(null, "¡Jugador agregado con éxito!");
 
         } else {
             JOptionPane.showMessageDialog(null, "Este Sistema solo puede gestionar 70 Jugadores.");
         }
 
     }
-    
+
     public static Posicion asignarPosicion() {
         Posicion posicion = null;
 
@@ -112,6 +109,17 @@ public class GestionJ {
         return posicion;
     }
     
+    
+    private static void agregarJugadorLibre(Jugador jugador) {
+        for (int i = 0; i < jugadoresLibres.length; i++) {
+            if (jugadoresLibres[i] == null) {
+                jugadoresLibres[i] = jugador;
+                JOptionPane.showMessageDialog(null, "¡Jugador registrado como libre!");
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "No se pueden agregar más jugadores libres.");
+    }
      public static void cargarJugadoresLista (Jugador jugadores[], Estado estado){
         
         String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del Jugador #" + (Jugador.cantidadJugador + 1) + ": ");
