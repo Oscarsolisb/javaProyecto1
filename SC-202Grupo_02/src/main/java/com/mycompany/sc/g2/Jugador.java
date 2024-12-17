@@ -18,7 +18,7 @@ public class Jugador {
     private int accionesTotales;
     private String nombreJugador;
     private Posicion posicion;
-    private Equipo equipoPertenencia;
+    private String equipoPertenencia;
     private Estado estado;
     public static int consecutivoGoles = 0;
     public static int consecutivoAcciones = 0;
@@ -31,6 +31,19 @@ public class Jugador {
     //gestion de equipos que solo muestre los jugadores libres
     // || CONSTRUCTORES ||
     //se crea el constructor de manera estatico para definir los parametros una vez creado la instancia 
+    public Jugador(String nombreJugador, Estado estado, Posicion posicion, String equipoPertenencia) {
+        this.idJugador = consecutivoID;
+        this.nombreJugador = nombreJugador;
+        this.estado = Estado.libre;
+        this.equipoPertenencia = equipoPertenencia;
+        this.posicion = posicion;
+        this.golesAnotados = 0;
+        this.accionesTotales = 0;
+        consecutivoID++;
+        cantidadJugador++;
+
+    }
+    
     public Jugador(String nombreJugador, Estado estado, Posicion posicion) {
         this.idJugador = consecutivoID;
         this.nombreJugador = nombreJugador;
@@ -111,11 +124,11 @@ public class Jugador {
         this.posicion = posicion;
     }
 
-    public Equipo getEquipoPertenencia() {
+    public String getEquipoPertenencia() {
         return equipoPertenencia;
     }
 
-    public void setEquipoPertenencia(Equipo equipoPertenencia) {
+    public void setEquipoPertenencia(String equipoPertenencia) {
         this.equipoPertenencia = equipoPertenencia;
     }
 

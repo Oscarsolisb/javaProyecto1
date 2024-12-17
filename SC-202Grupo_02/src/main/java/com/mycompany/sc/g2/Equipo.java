@@ -201,6 +201,30 @@ public class Equipo {
         this.partidosPerdidos = partidosPerdidos;
     }
 
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public Jugador[] getTitulares() {
+        return titulares;
+    }
+
+    public void setTitulares(Jugador[] titulares) {
+        this.titulares = titulares;
+    }
+
+    public Jugador[] getSuplentes() {
+        return suplentes;
+    }
+
+    public void setSuplentes(Jugador[] suplentes) {
+        this.suplentes = suplentes;
+    }
+
    
     
     

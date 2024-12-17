@@ -64,14 +64,25 @@ public class GestionJ {
 
             }
             if (valorBtn == 0) {//Agregar con Equipo 
+                
+                
+                
+                Equipo equipo = GestionE.seleccionEquipo();
+                String equipoPertenencia = equipo.toString();
+                
+                String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del Jugador #" + (Jugador.cantidadJugador + 1) + ": ");
+                jugadores[Jugador.cantidadJugador] = new Jugador(nombreJugador, Estado.titular, Posicion.portero, equipoPertenencia);
+                GestionE.equipos[equipo] = GestionE.equipos[equipo].setTitulares(jugadores);
+                
+                JOptionPane.showMessageDialog(null, "¡Jugador agregado con éxito!");
 
-                GestionE.seleccionEquipo();
-                if (GestionE.seleccionEquipo() == GestionE.equipos[0]) {//Equipo 1
-                    cargarJugadoresLista(jugadoresEquipoAT, Estado.titular);
-
-                }
-            } else if (valorBtn == 1) {
-                agregarJugadorLibre(jugador);
+            } else if (valorBtn == 1) { //agregar 
+                
+                String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del Jugador #" + (Jugador.cantidadJugador + 1) + ": ");
+                jugadores[Jugador.cantidadJugador] = new Jugador(nombreJugador, Estado.titular, Posicion.portero);
+                agregarJugadorLibre(jugadores[Jugador.cantidadJugador]);
+                JOptionPane.showMessageDialog(null, "¡Jugador agregado con éxito!");
+                
                 
             }
 
@@ -120,16 +131,23 @@ public class GestionJ {
         }
         JOptionPane.showMessageDialog(null, "No se pueden agregar más jugadores libres.");
     }
-     public static void cargarJugadoresLista (Jugador jugadores[], Estado estado){
-        
-        String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del Jugador #" + (Jugador.cantidadJugador + 1) + ": ");
+//    public static void cargarJugadoresListaEquipo(Jugador jugadores[], Estado estado) {
+//
+//        String nombreJugador = JOptionPane.showInputDialog("Ingrese el nombre del Jugador #" + (Jugador.cantidadJugador + 1) + ": ");
+//
+//        jugadores[Jugador.cantidadJugador] = new Jugador(nombreJugador, Estado.titular, GestionJ.asignarPosicion());
+//        JOptionPane.showMessageDialog(null, "¡Jugador agregado con éxito!");
+//
+//    }
+    
+    public static void cargarJugadoresListaLibres(Jugador jugadores[], Estado estado) {
 
-                    jugadores[Jugador.cantidadJugador] = new Jugador(nombreJugador, Estado.titular, GestionJ.asignarPosicion());
-                    JOptionPane.showMessageDialog(null, "¡Jugador agregado con éxito!");
         
+        String nombreJugador =null;
+        
+
     }
-    
-    
+
     
     
 }
